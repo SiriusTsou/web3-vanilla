@@ -79,7 +79,6 @@ class Web3Manager {
   }
 
   actionWeb3State(action) {
-    console.log(action)
     const state = {
       account: this.web3State.account,
       connectorName: this.web3State.connectorName,
