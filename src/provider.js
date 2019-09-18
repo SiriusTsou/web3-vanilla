@@ -4,17 +4,14 @@ import Web3Manager from './manager'
 class Web3Provider {
   constructor({ connectors, libraryName = null, web3Api = null }) {
     this._libraryName = libraryName
-    this._web3Api = web3Api
+    this.web3Api = web3Api
 
-    const web3Manger = new Web3Manager(connectors)
-    this._web3Manger = web3Manger
+    this._web3Manger = new Web3Manager(connectors)
 
-    this.event = web3Manger.web3State
-
-    this.setConnector = web3Manger.setConnector.bind(web3Manger)
-    this.setFirstValidConnector = web3Manger.setFirstValidConnector.bind(web3Manger)
-    this.unsetConnector = web3Manger.unsetConnector.bind(web3Manger)
-    this.setError = web3Manger.setError.bind(web3Manger)
+    this.setConnector = this._web3Manger.setConnector.bind(this._web3Manger)
+    this.setFirstValidConnector = this._web3Manger.setFirstValidConnector.bind(this._web3Manger)
+    this.unsetConnector = this._web3Manger.unsetConnector.bind(this._web3Manger)
+    this.setError = this._web3Manger.setError.bind(this._web3Manger)
   }
 
   get library() {
@@ -23,21 +20,26 @@ class Web3Provider {
       (() => {
         switch (this._libraryName) {
           case 'ethers.js':
+            this.web3Api = ethers
             return new ethers.providers.Web3Provider(this.provider)
           case 'web3.js':
-            if (!this._web3Api) {
+            if (!this.web3Api) {
               const error = Error('web3Api is not exists.')
               error.code = 'WEB3_API_NOT_EXISTS'
 
               throw error
             }
 
-            return new this._web3Api(this.provider)
+            return new this.web3Api(this.provider)
           case null:
             return this.provider
         }
       })()
     return providerToInject
+  }
+
+  get event() {
+    return this._web3Manger.web3State
   }
 
   get connector() {

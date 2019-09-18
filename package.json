@@ -1,6 +1,6 @@
 {
   "name": "web3-vanilla",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -29,6 +29,6 @@
     "webpack-cli": "^3.3.8"
   },
   "peerDependencies": {
-    "ethers": "^4.0.36"
+    "ethers": "^5.0.0-beta.157"
   }
 }

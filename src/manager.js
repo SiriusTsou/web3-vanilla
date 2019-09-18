@@ -150,10 +150,11 @@ class Web3Manager {
 
   offConnector() {
     const activeConnector = this.activeConnector
+
     if (activeConnector) {
-      activeConnector.removeListener('_web3Update', this._web3UpdateHandler)
-      activeConnector.removeListener('_web3Error', this._web3ErrorHandler)
-      activeConnector.removeListener('_web3Reset', this._web3ResetHandler)
+      this._web3UpdateHandler && activeConnector.removeListener('_web3Update', this._web3UpdateHandler)
+      this._web3ErrorHandler && activeConnector.removeListener('_web3Error', this._web3ErrorHandler)
+      this._web3ResetHandler && activeConnector.removeListener('_web3Reset', this._web3ResetHandler)
 
       activeConnector.onDeactivation(this.web3State.error)
     }
@@ -208,8 +209,6 @@ class Web3Manager {
             return
           }
 
-          this.offConnector()
-
           this.actionWeb3State({
             payload: { connectorName, provider, networkId, account },
             type: 'UPDATE_CONNECTOR_VALUES'
@@ -261,6 +260,7 @@ class Web3Manager {
 
   // function to unset the current connector
   unsetConnector() {
+    this.offConnector()
     this.actionWeb3State({ type: 'RESET' })
   }
 
