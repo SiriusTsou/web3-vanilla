@@ -1,6 +1,6 @@
 {
   "name": "web3-vanilla",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -14,9 +14,7 @@
     "build:prod": "webpack --config ./webpack.config.js --mode production --output ./dist/web3-vanilla.min.js"
   },
   "dependencies": {
-    "@0x/subproviders": "^5.0.3",
-    "ethers": "^4.0.37",
-    "web3-provider-engine": "^15.0.3"
+    "@0x/subproviders": "^5.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
@@ -31,6 +29,6 @@
     "webpack-cli": "^3.3.8"
   },
   "peerDependencies": {
-    "ethers": "^4.0.36"
+    "ethers": "^5.0.0-beta.157"
   }
 }

@@ -152,9 +152,9 @@ class Web3Manager {
     const activeConnector = this.activeConnector
 
     if (activeConnector) {
-      activeConnector.removeListener('_web3Update', this._web3UpdateHandler)
-      activeConnector.removeListener('_web3Error', this._web3ErrorHandler)
-      activeConnector.removeListener('_web3Reset', this._web3ResetHandler)
+      this._web3UpdateHandler && activeConnector.removeListener('_web3Update', this._web3UpdateHandler)
+      this._web3ErrorHandler && activeConnector.removeListener('_web3Error', this._web3ErrorHandler)
+      this._web3ResetHandler && activeConnector.removeListener('_web3Reset', this._web3ResetHandler)
 
       activeConnector.onDeactivation(this.web3State.error)
     }

@@ -4,7 +4,7 @@ import Web3Manager from './manager'
 class Web3Provider {
   constructor({ connectors, libraryName = null, web3Api = null }) {
     this._libraryName = libraryName
-    this._web3Api = web3Api
+    this.web3Api = web3Api
 
     this._web3Manger = new Web3Manager(connectors)
 
@@ -20,16 +20,17 @@ class Web3Provider {
       (() => {
         switch (this._libraryName) {
           case 'ethers.js':
+            this.web3Api = ethers
             return new ethers.providers.Web3Provider(this.provider)
           case 'web3.js':
-            if (!this._web3Api) {
+            if (!this.web3Api) {
               const error = Error('web3Api is not exists.')
               error.code = 'WEB3_API_NOT_EXISTS'
 
               throw error
             }
 
-            return new this._web3Api(this.provider)
+            return new this.web3Api(this.provider)
           case null:
             return this.provider
         }
