@@ -23,27 +23,24 @@ const babelConfig = {
 }
 
 module.exports = {
-  target: 'node',
-  entry: './src/index.js',
+  entry: './src/umd.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
-    libraryTarget: 'umd',
-  },
-  externals: {
-    'ethers': 'ethers',
-    '@0x/subproviders': '@0x/subproviders',
+    filename: 'web3-vanilla.js',
+    library: 'Web3Vanilla',
+    libraryTarget: 'var',
+    libraryExport: 'default',
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          // options: babelConfig,
+          options: babelConfig,
         }
       }
     ]
-  },
+  }
 }

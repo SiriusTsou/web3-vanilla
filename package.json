@@ -2,7 +2,7 @@
   "name": "web3-vanilla",
   "version": "0.1.2",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/SiriusTsou/web3-vanilla.git"
@@ -10,8 +10,10 @@
   "author": "Sirius Tsou <sirius.tsou@gmail.com>",
   "license": "LGPL-3.0",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js --mode development --devtool source-map --output ./dist/web3-vanilla.js",
-    "build:prod": "webpack --config ./webpack.config.js --mode production --output ./dist/web3-vanilla.min.js"
+    "build": "webpack --config ./webpack.config.js --mode development --devtool source-map --output ./dist/index.js",
+    "build:prod": "webpack --config ./webpack.config.js --mode production --output ./dist/index.js",
+    "build-umd": "webpack --config ./webpack-umd.config.js --mode development --devtool source-map --output ./dist/web3-vanilla.js",
+    "build-umd:prod": "webpack --config ./webpack-umd.config.js --mode production --output ./dist/web3-vanilla.min.js"
   },
   "dependencies": {
     "@0x/subproviders": "^5.0.3"
