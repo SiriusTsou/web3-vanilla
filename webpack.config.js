@@ -26,7 +26,7 @@ module.exports = {
   target: 'node',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'lib'),
     filename: 'index.js',
     libraryTarget: 'umd',
   },
