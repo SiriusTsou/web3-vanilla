@@ -76,12 +76,20 @@ Throws:
 
 ## `WalletConnectConnector`
 
+### IMPORTANT: To use WalletConnectConnector, you must install the SDK:
+
+```bash
+npm install @walletconnect/web3-subprovider@^1.0.0-beta.38
+```
+
 Manages connectivity to a [WalletConnect](https://walletconnect.org/) wallet.
 
 ```javascript
 import { Connectors } from 'web3-vanilla'
+import WalletConnectApi from '@walletconnect/web3-subprovider'
 
 const WalletConnect = Connectors.WalletConnectConnector({
+  api: WalletConnectApi,
   bridge: ...,
   qrcode: ...,
   supportedNetworkURLs: ...,
@@ -90,6 +98,8 @@ const WalletConnect = Connectors.WalletConnectConnector({
 ```
 
 Arguments:
+
+- `api: any` - An instance of the [`@walletconnect/web3-subprovider`](https://github.com/WalletConnect/walletconnect-monorepo) API, version `^1.0.0-beta.1`.
 
 - `bridge: string` - The URL of the WalletConnect bridge.
 
