@@ -33,6 +33,7 @@ module.exports = {
   externals: {
     'ethers': 'ethers',
     '@0x/subproviders': '@0x/subproviders',
+    '@walletconnect/web3-subprovider': '@walletconnect/web3-subprovider',
   },
   module: {
     rules: [
