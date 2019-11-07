@@ -6,4 +6,4 @@ import * as subproviders from '@0x/subproviders'
 
 import * as Connectors from './connectors'
 
-export default { Web3Vanilla, subproviders, Connectors }
+export default { Web3Provider, subproviders, Connectors }
