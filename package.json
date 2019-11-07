@@ -17,7 +17,9 @@
     "build-frontend:prod": "webpack --config ./webpack-frontend.config.js --mode production --output ./dist/web3-vanilla.min.js"
   },
   "dependencies": {
-    "@0x/subproviders": "^5.0.3"
+    "@0x/subproviders": "^5.0.3",
+    "@walletconnect/web3-subprovider": "^1.0.0-beta.38",
+    "ethers": "^5.0.0-beta.157"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
