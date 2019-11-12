@@ -4,10 +4,16 @@ import Connector, { ConnectorArguments } from './connector'
 
 export default class PrivateKeyConnector extends Connector {
   constructor(kwargs) {
-    const { providerURL, privateKey, ...rest } = kwargs
-    super(rest)
-    this.providerURL = providerURL
+    const { privateKey, supportedNetworkURLs, defaultNetwork } = kwargs
+    
+    const supportedNetworks = Object.keys(supportedNetworkURLs).map(
+      (supportedNetworkURL) => Number(supportedNetworkURL)
+    )
+    super({ supportedNetworks })
+
     this.privateKey = privateKey
+    this.supportedNetworkURLs = supportedNetworkURLs
+    this.defaultNetwork = defaultNetwork
   }
 
   async onActivation() {
@@ -21,13 +27,16 @@ export default class PrivateKeyConnector extends Connector {
     this.engine.start()
   }
 
-  async getProvider() {
+  async getProvider(networkId = null) {
+    // we have to validate here because networkId might not be a key of supportedNetworkURLs
+    const networkIdToUse = networkId || this.defaultNetwork
+    super._validateNetworkId(networkIdToUse)
+
     return this.engine
   }
 
   async getAccount() {
-    // dirty
-    return this.engine._providers[0]._address
+    return super.getAccount(provider)
   }
 
   onDeactivation() {
