@@ -16,26 +16,26 @@ export default class PrivateKeyConnector extends Connector {
     this.defaultNetwork = defaultNetwork
   }
 
-  async onActivation() {
+  async onActivation(networkId = null) {
+    // we have to validate here because networkId might not be a key of supportedNetworkURLs
+    const networkIdToUse = networkId || this.defaultNetwork
+    super._validateNetworkId(networkIdToUse)
+
     if (!this.engine) {
       const engine = new Web3ProviderEngine()
       this.engine = engine
       this.engine.addProvider(new PrivateKeyWalletSubprovider(this.privateKey))
-      this.engine.addProvider(new RPCSubprovider(this.providerURL))
+      this.engine.addProvider(new RPCSubprovider(this.supportedNetworkURLs[networkIdToUse]))
     }
 
     this.engine.start()
   }
 
-  async getProvider(networkId = null) {
-    // we have to validate here because networkId might not be a key of supportedNetworkURLs
-    const networkIdToUse = networkId || this.defaultNetwork
-    super._validateNetworkId(networkIdToUse)
-
+  async getProvider() {
     return this.engine
   }
 
-  async getAccount() {
+  async getAccount(provider) {
     return super.getAccount(provider)
   }
 

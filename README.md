@@ -47,7 +47,10 @@ const { InjectedConnector, NetworkOnlyConnector } = Connectors
 const MetaMask = new InjectedConnector({ supportedNetworks: [1, 4] })
 
 const Infura = new NetworkOnlyConnector({
-  providerURL: 'https://mainnet.infura.io/v3/...'
+  supportedNetworkURLs: {
+    1: 'https://mainnet.infura.io/v3/...',
+  },
+  defaultNetwork: 1,
 })
 
 const connectors = { MetaMask, Infura }

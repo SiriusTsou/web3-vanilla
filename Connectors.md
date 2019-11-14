@@ -40,13 +40,16 @@ Manages connectivity to a remote web3 provider such as [Infura](https://infura.i
 import { Connectors } from 'web3-vanilla'
 
 const Infura = Connectors.NetworkOnlyConnector({
-  providerURL: ...
+  supportedNetworkURLs: ...,
+  defaultNetwork: ...,
 })
 ```
 
 Arguments:
 
-- `providerURL` - The URL of a remote node.
+- `supportedNetworkURLs: any` - An object whose keys are network IDs, and values are remote nodes that can connect to that network ID.
+
+- `defaultNetwork: number` - The network ID that the connector will use by default.
 
 Throws:
 
@@ -60,15 +63,19 @@ Inject PrivateKey for fake account & Manages connectivity to a remote web3 provi
 import { Connectors } from 'web3-vanilla'
 
 const PrivateKey = Connectors.PrivateKeyConnector({
-  providerURL: ...,
   privateKey: ...,
+  supportedNetworkURLs: ...,
+  defaultNetwork: ...,
 })
 ```
 
 Arguments:
 
-- `providerURL` - The URL of a remote node.
 - `privateKey` - The PrivateKey for fake account.
+
+- `supportedNetworkURLs: any` - An object whose keys are network IDs, and values are remote nodes that can connect to that network ID.
+
+- `defaultNetwork: number` - The network ID that the connector will use by default.
 
 Throws:
 
@@ -93,7 +100,7 @@ const WalletConnect = Connectors.WalletConnectConnector({
   bridge: ...,
   qrcode: ...,
   supportedNetworkURLs: ...,
-  defaultNetwork: ...
+  defaultNetwork: ...,
 })
 ```
 

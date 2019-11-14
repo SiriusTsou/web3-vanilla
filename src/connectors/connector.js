@@ -24,7 +24,7 @@ export default class Connector extends ErrorCodeMixin(EventEmitter, ConnectorErr
     this.supportedNetworks = supportedNetworks
   }
 
-  async onActivation() {}
+  async onActivation(networkId = null) {}
   onDeactivation(_error) {}
   async getProvider(networkId) {}
 

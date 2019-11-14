@@ -198,7 +198,7 @@ class Web3Manager {
 
     // at this point, begin initializing the connector
     try {
-      await connector.onActivation()
+      await connector.onActivation(networkId)
       const provider = await connector.getProvider(networkId)
       const networkIdPromise = connector.getNetworkId(provider)
       const accountPromise = connector.getAccount(provider)
