@@ -150,7 +150,6 @@ class Web3Manager {
 
   offConnector() {
     const activeConnector = this.activeConnector
-
     if (activeConnector) {
       this._web3UpdateHandler && activeConnector.removeListener('_web3Update', this._web3UpdateHandler)
       this._web3ErrorHandler && activeConnector.removeListener('_web3Error', this._web3ErrorHandler)
@@ -200,22 +199,19 @@ class Web3Manager {
     try {
       await connector.onActivation(networkId)
       const provider = await connector.getProvider(networkId)
-      const networkIdPromise = connector.getNetworkId(provider)
-      const accountPromise = connector.getAccount(provider)
-      await Promise.all([networkIdPromise, accountPromise]).then(
-        ([networkId, account]) => {
-          if (this.refId.current !== callingTimeRefId + 1) {
-            console.warn(`Silently suppressing status update from stale connector '${connectorName}'.`)
-            return
-          }
+      const _networkId = await connector.getNetworkId(provider)
+      const _account = await connector.getAccount(provider)
 
-          this.actionWeb3State({
-            payload: { connectorName, provider, networkId, account },
-            type: 'UPDATE_CONNECTOR_VALUES'
-          })
-          this.onConnector()
-        }
-      )
+      if (this.refId.current !== callingTimeRefId + 1) {
+        console.warn(`Silently suppressing status update from stale connector '${connectorName}'.`)
+        return
+      }
+
+      this.actionWeb3State({
+        payload: { connectorName, provider, networkId: _networkId, account: _account },
+        type: 'UPDATE_CONNECTOR_VALUES'
+      })
+      this.onConnector()
     } catch (error) {
       // if the component has re-rendered since this function was called, eat the error
       if (this.refId.current !== callingTimeRefId + 1) {

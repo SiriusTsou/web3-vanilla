@@ -1,6 +1,6 @@
 {
   "name": "web3-vanilla",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "",
   "main": "./lib/index.min.js",
   "repository": {
@@ -10,7 +10,10 @@
   "author": "Sirius Tsou <sirius.tsou@gmail.com>",
   "license": "LGPL-3.0",
   "scripts": {
-    "build:all": "npm run build && npm run build:prod && npm run build-frontend && npm run build-frontend:prod",
+    "clean:all": "npm run clean && npm run clean-frontend",
+    "clean": "rm -rf ./lib",
+    "clean-frontend": "rm -rf ./dist",
+    "build:all": "npm run clean:all && npm run build && npm run build:prod && npm run build-frontend && npm run build-frontend:prod",
     "build": "webpack --config ./webpack.config.js --mode development --devtool source-map --output ./lib/index.js",
     "build:prod": "webpack --config ./webpack.config.js --mode production --output ./lib/index.min.js",
     "build-frontend": "webpack --config ./webpack-frontend.config.js --mode development --devtool source-map --output ./dist/web3-vanilla.js",
@@ -18,7 +21,8 @@
   },
   "dependencies": {
     "@0x/subproviders": "^5.0.3",
-    "ethers": "^5.0.0-beta.157"
+    "ethers": "^5.0.0-beta.157",
+    "web3-provider-engine": "^15.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

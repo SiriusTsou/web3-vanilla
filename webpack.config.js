@@ -10,6 +10,7 @@ module.exports = {
   },
   externals: {
     'ethers': 'ethers',
+    'web3-provider-engine': 'web3-provider-engine',
     '@0x/subproviders': '@0x/subproviders',
   },
   module: {
