@@ -28,10 +28,10 @@ export default class WalletConnectConnector extends Connector {
         qrcode: this.qrcode,
       })
       this.walletConnectSubprovider = walletConnectSubprovider
-      this.walletConnector = this.walletConnectSubprovider._walletConnector
+      this.walletConnector = this.walletConnectSubprovider.connector
     }
 
-    if (!this.walletConnector.connected) {
+    if (!this.walletConnector._connected) {
       await this.walletConnector.createSession()
     }
 
@@ -61,7 +61,7 @@ export default class WalletConnectConnector extends Connector {
   }
 
   async getAccount(provider) {
-    if (this.walletConnector.connected) {
+    if (this.walletConnector._connected) {
       return super.getAccount(provider)
     } else {
       return null
